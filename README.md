@@ -36,9 +36,17 @@ Write a decision when a non-obvious choice was made between real alternatives, w
 
 ---
 
+## Agent support
+
+Skills are authored once in `.claude/skills/<name>/SKILL.md` (the canonical source — includes Claude Code's `allowed-tools` permission scoping) and mirrored to `.agents/skills/<name>/SKILL.md` for Codex and other tools that follow the same emerging convention (frontmatter trimmed to `name`/`description`; body identical). `CLAUDE.md` and `AGENTS.md` carry the same project instructions for their respective tools.
+
+If you edit a skill, update both copies — `.claude/skills` is the source of truth; `.agents/skills` should just drop the `allowed-tools` line.
+
+Gemini CLI uses a different convention (`.gemini/commands/*.toml`) and isn't supported yet.
+
 ## Skills
 
-Slash commands that run structured workflows in Claude Code:
+Slash commands that run structured workflows in Claude Code (also available to Codex-style agents via `.agents/skills/`):
 
 | Skill | Trigger | Purpose |
 |---|---|---|
@@ -73,8 +81,8 @@ Each phase feeds the next. Nothing is implemented without a spec; nothing is spe
 
 ## Setup
 
-1. Copy `.claude/` and `documents/` into your project root.
-2. Fill in `CLAUDE.md` with your stack and project-specific conventions.
+1. Copy `.claude/` (and, if you use Codex or another `.agents/skills`-compatible tool, `.agents/`) plus `documents/` into your project root.
+2. Fill in `CLAUDE.md` (and `AGENTS.md`, if used) with your stack and project-specific conventions.
 3. Run `/draft-northstar` to create your vision document.
 4. Run `/draft-capability` to document a capability and generate its roadmap.
 5. Work through the roadmap: `/draft-foundation` → `/draft-spec` → `/imp` → `/audit`.
